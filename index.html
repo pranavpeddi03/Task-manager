@@ -1,58 +1,47 @@
-function addTask() {
-  const taskText = document.getElementById("taskText").value.trim();
-  const timeValue = document.getElementById("taskTimeValue").value.trim();
-  const timeUnit = document.getElementById("taskTimeUnit").value;
-  const taskList = document.getElementById("taskList");
 
-  if (taskText === "") {
-    alert("Please enter a task.");
-    return;
-  }
+  <!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Task Manager</h1>
+    </header>
 
-  let formattedTime = "";
-  if (timeValue !== "") {
-    formattedTime = `${timeValue} ${timeUnit}`;
-  }
+    <section class="task-form">
+      <input
+        type="text"
+        id="taskText"
+        placeholder="What do you need to do?"
+        aria-label="Task description"
+      />
 
-  const li = document.createElement("li");
-  li.className = "task-item";
+      <div class="time-input-group">
+        <input
+          type="number"
+          id="taskTimeValue"
+          min="1"
+          placeholder="Enter time"
+          aria-label="Task time value"
+        />
+        <select id="taskTimeUnit" aria-label="Task time unit">
+          <option value="minutes">Minutes</option>
+          <option value="hours">Hours</option>
+          <option value="days">Days</option>
+        </select>
+      </div>
 
-  const taskContent = document.createElement("div");
-  taskContent.className = "task-text";
-  taskContent.textContent = taskText;
+      <button onclick="addTask()">Add Task</button>
+    </section>
 
-  const timeElement = document.createElement("div");
-  timeElement.className = "task-time";
-  timeElement.textContent = formattedTime ? `⏱️ ${formattedTime}` : "";
+    <ul id="taskList" class="task-list"></ul>
+  </div>
 
-  const controls = document.createElement("div");
-  controls.className = "task-controls";
-
-  const completeBtn = document.createElement("button");
-  completeBtn.className = "complete-btn";
-  completeBtn.textContent = "Complete";
-  completeBtn.onclick = () => {
-    li.classList.toggle("completed");
-  };
-
-  const deleteBtn = document.createElement("button");
-  deleteBtn.className = "delete-btn";
-  deleteBtn.textContent = "Delete";
-  deleteBtn.onclick = () => {
-    li.remove();
-  };
-
-  controls.appendChild(completeBtn);
-  controls.appendChild(deleteBtn);
-
-  li.appendChild(taskContent);
-  if (formattedTime) li.appendChild(timeElement);
-  li.appendChild(controls);
-
-  taskList.appendChild(li);
-
-  // Clear inputs
-  document.getElementById("taskText").value = "";
-  document.getElementById("taskTimeValue").value = "";
-  document.getElementById("taskTimeUnit").value = "minutes";
-}
+  <script src="script.js"></script>
+</body>
+</html>
